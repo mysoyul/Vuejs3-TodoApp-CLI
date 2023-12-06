@@ -25,6 +25,7 @@ const handleInput = (event) => {
 const addTodo = () => {
     const todoItem = newTodoItem.value
     const todoItemObj = { completed: false, item: todoItem }
+    //obj => json 변환해서 로컬스토리지에 저장
     localStorage.setItem(todoItem, JSON.stringify(todoItemObj))
 
     clearInput()
