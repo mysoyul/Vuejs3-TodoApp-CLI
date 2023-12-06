@@ -1,8 +1,7 @@
 <template>
     <div>
-        {{ newTodoItem }}
         <input type="text" :value="newTodoItem" v-on:input="handleInput">
-        <button>추가</button>
+        <button @click="addTodo">추가</button>
     </div>
 </template>
 
@@ -19,6 +18,12 @@ const handleInput = (event) => {
     //이벤트 발생
     emit("input:todo", todoText)
     newTodoItem.value = todoText
+}
+
+const addTodo = () => {
+    const todoItem = newTodoItem.value
+    localStorage.setItem(todoItem, todoItem)
+    newTodoItem.value = ""
 }
 
 </script>
