@@ -12,7 +12,7 @@ import TodoHeader from './components/TodoHeader.vue'
 import TodoInput from './components/TodoInput.vue'
 import TodoIList from './components/TodoIList.vue'
 import TodoFooter from '@/components/TodoFooter.vue'
-
+import { onBeforeMount, reactive } from 'vue'
 
 export default {
   name: 'App',
@@ -21,7 +21,24 @@ export default {
     TodoInput,
     TodoIList,
     TodoFooter
-  }
+  },
+  setup() {
+    const todoItems = reactive([]);
+
+    onBeforeMount(() => {
+      if (localStorage.length > 0) {
+        for (var i = 0; i < localStorage.length; i++) {
+          const storageKey = localStorage.key(i)
+          const itemJson = localStorage.getItem(storageKey)
+          if (itemJson) {
+            todoItems.push(JSON.parse(itemJson));
+          } //if
+        } //for
+      } //if
+    }) //onBeforeMount
+
+    return { todoItems };
+  }, //setup
 }
 </script>
 
@@ -51,4 +68,5 @@ button {
 
 .shadow {
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
-}</style>
+}
+</style>
