@@ -2,7 +2,7 @@
   <div>
     <TodoHeader></TodoHeader>
     <TodoInput @add:todo="addTodo"></TodoInput>
-    <TodoIList :todo-items="todoItems"></TodoIList>
+    <TodoIList :todo-items="todoItems" @remove:todo="removeTodo"></TodoIList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -44,7 +44,12 @@ export default {
       todoItems.push(todoItemObj);
     };//addTodo
 
-    return { todoItems, addTodo };
+    const removeTodo = (todoItem, index) => {
+      localStorage.removeItem(todoItem)
+      todoItems.value.splice(index, 1)
+    }
+
+    return { todoItems, addTodo, removeTodo };
   }, //setup
 }
 </script>
