@@ -2,7 +2,8 @@
     <div>
         <ul>
             <li v-for="(todo, index) in todoItems" :key="index" class="shadow">
-                {{ todo.item }}
+                <i class="fas fa-check checkBtn" :class="{checkBtnCompleted: todo.completed}"></i>
+                <span :class="{textCompleted: todo.completed }">{{todo.item}}</span>
                 <span class="removeBtn" @click="removeTodo(todo.item, index)">
                     <i class="fas fa-trash-alt"></i>
                 </span>
