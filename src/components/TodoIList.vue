@@ -23,9 +23,9 @@ onBeforeMount(() => {
     if (localStorage.length > 0) {
         for (var i = 0; i < localStorage.length; i++) {
             const storageKey = localStorage.key(i)
-            const itemJson = localStorage.getItem(storageKey);
+            const itemJson = localStorage.getItem(storageKey)
             //json => object 로 배열에 저장
-            todoItems.value.push(JSON.parse(itemJson));
+            todoItems.value.push(JSON.parse(itemJson))
         }
     }
 })
@@ -35,10 +35,12 @@ const removeTodo = (todoItem, index) => {
     todoItems.value.splice(index, 1)
 }
 
-const toggleComplete = (todoItem) => {
-    todoItem.completed = !todoItem.completed;
-    localStorage.removeItem(todoItem.item);
-    localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+const toggleComplete = (todoObject) => {
+    const { item, completed } = todoObject
+    todoObject.completed = !completed
+    
+    localStorage.removeItem(item)
+    localStorage.setItem(item, JSON.stringify(todoObject))
 }
 
 </script>
