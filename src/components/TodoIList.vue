@@ -3,6 +3,9 @@
         <ul>
             <li v-for="(item, index) in todoItems" :key="index" class="shadow">
                 {{ item }}
+                <span class="removeBtn" @click="removeTodo(item, index)">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
             </li>
         </ul>
 
@@ -73,4 +76,5 @@ li {
 .textCompleted {
     text-decoration: line-through;
     color: #b3adad;
-}</style>
+}
+</style>
