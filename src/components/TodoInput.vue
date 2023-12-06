@@ -24,7 +24,9 @@ const handleInput = (event) => {
 
 const addTodo = () => {
     const todoItem = newTodoItem.value
-    localStorage.setItem(todoItem, todoItem)
+    const todoItemObj = { completed: false, item: todoItem }
+    localStorage.setItem(todoItem, JSON.stringify(todoItemObj))
+
     clearInput()
 }
 
@@ -36,9 +38,11 @@ const clearInput = () => {
 </script>
 
 <style scoped>
-i,span {
+i,
+span {
     cursor: pointer;
 }
+
 input:focus {
     outline: none;
 }
