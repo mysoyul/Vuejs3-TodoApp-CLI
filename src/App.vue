@@ -2,7 +2,7 @@
   <div>
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
-    <TodoIList></TodoIList>
+    <TodoIList :todo-items="todoItems"></TodoIList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
