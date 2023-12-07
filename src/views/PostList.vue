@@ -4,13 +4,14 @@
             <h1 class="text-center">Posts</h1>
                 <h3 v-if="loadingStatus" class="text-center">Loading...</h3>
                 <div v-else>
-                    <ul class="list-group">
+                    <!-- <ul class="list-group"> -->
+                    <TransitionGroup name="list" class="list-group" tag="ul">
                         <li v-for="post in posts" :key="post.id" class="list-group-item">
                             <router-link :to="{ name: 'post', params: { id: post.id } }" class="link-primary">
                                 [ID: {{ post.id }}] {{ post.title }}
                             </router-link>
                         </li>
-                    </ul>
+                    </TransitionGroup>
                 </div>
             </div>
             <div class="container">
@@ -60,4 +61,16 @@ a:hover {
     background-color: #98d8de;
     padding: 2px;
 }
+
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
 </style>
