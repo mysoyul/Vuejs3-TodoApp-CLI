@@ -1,29 +1,12 @@
 <template>
-  <div>
-    <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
-    <TodoIList></TodoIList>
-    <TodoFooter></TodoFooter>
-  </div>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/posts">Posts</router-link> |
+    <router-link to="/posts/new">New Post</router-link>
+  </nav>
+  <router-view/>
 </template>
-
-<script>
-import TodoHeader from './components/TodoHeader.vue'
-import TodoInput from './components/TodoInput.vue'
-import TodoIList from './components/TodoIList.vue'
-import TodoFooter from '@/components/TodoFooter.vue'
-
-
-export default {
-  name: 'App',
-  components: {
-    TodoHeader,
-    TodoInput,
-    TodoIList,
-    TodoFooter
-  }
-}
-</script>
 
 <style>
 #app {
@@ -32,23 +15,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
-body {
-  text-align: center;
-  background-color: #f6f6f6;
+nav {
+  padding: 30px;
 }
 
-input {
-  border-style: groove;
-  width: 200px;
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
 }
 
-button {
-  border-style: groove;
+nav a.router-link-exact-active {
+  color: #42b983;
 }
-
-.shadow {
-  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
-}</style>
+</style>

@@ -5,10 +5,15 @@
 </template>
 
 <script>
+import { useStore } from "vuex"
+
 export default {
+       
     setup() {
+        const store = useStore()
+
         const clearTodo = () => {
-            localStorage.clear()
+            store.dispatch("moduleTodo/clearTodo")
         }
 
         return {

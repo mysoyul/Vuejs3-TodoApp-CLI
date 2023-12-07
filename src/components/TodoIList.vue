@@ -1,46 +1,37 @@
 <template>
     <div>
-        <ul>
+        <TransitionGroup name="list" tag="ul">
             <li v-for="(todo, index) in todoItems" :key="index" class="shadow">
                 <i class="fas fa-check checkBtn" :class="{ checkBtnCompleted: todo.completed }"
                     @click="toggleComplete(todo)"></i>
                 <span :class="{ textCompleted: todo.completed }">{{ todo.item }}</span>
-                <span class="removeBtn" @click="removeTodo(todo.item, index)">
+                <span class="removeBtn" @click="removeTodo(todo)">
                     <i class="fas fa-trash-alt"></i>
                 </span>
             </li>
-        </ul>
-
+        </TransitionGroup>
     </div>
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { useStore } from "vuex"
+import { computed, onMounted } from "vue"
 
-const todoItems = ref([])
+const store = useStore()
+const todoItems = computed(() => store.state.moduleTodo.todoItems)
 
-onBeforeMount(() => {
-    if (localStorage.length > 0) {
-        for (var i = 0; i < localStorage.length; i++) {
-            const storageKey = localStorage.key(i)
-            const itemJson = localStorage.getItem(storageKey)
-            //json => object 로 배열에 저장
-            todoItems.value.push(JSON.parse(itemJson))
-        }
-    }
+onMounted(() => {
+    console.log('onMounted...')
+    store.dispatch("moduleTodo/loadTodoItems")
 })
 
-const removeTodo = (todoItem, index) => {
-    localStorage.removeItem(todoItem)
-    todoItems.value.splice(index, 1)
+const removeTodo = (todoItem) => {
+    store.dispatch("moduleTodo/removeTodo", todoItem)
 }
 
-const toggleComplete = (todoObject) => {
-    const { item, completed } = todoObject
-    todoObject.completed = !completed
-    
-    localStorage.removeItem(item)
-    localStorage.setItem(item, JSON.stringify(todoObject))
+const toggleComplete = (todoItem) => {
+    todoItem.completed = !todoItem.completed
+    store.dispatch("moduleTodo/toggleTodo", todoItem)
 }
 
 </script>
@@ -87,5 +78,16 @@ li {
 .textCompleted {
     text-decoration: line-through;
     color: #b3adad;
+}
+
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
 }
 </style>

@@ -4,15 +4,32 @@
         <span class="addContainer" @click="addTodo">
             <i class="fas fa-plus addBtn"></i>
         </span>
+        <MyModal v-if="showModal" @close="showModal = false">
+            <template v-slot:header>
+                <h3>
+                    경고!
+                    <i class="closeModalBtn fas fa-times" @click="showModal = false"></i>
+                </h3>
+            </template>
+            <template v-slot:body>
+                <div>아무것도 입력하지 않으셨습니다.</div>
+            </template>
+        </MyModal>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import MyModal from './common/MyModal.vue'
+import { useStore } from "vuex"
 
+const store = useStore()
+
+const showModal = ref(false)
 const newTodoItem = ref("")
 //"input:todo" 이벤트 정의
 const emit = defineEmits(["input:todo"])
+
 
 const handleInput = (event) => {
     const todoText = event.target.value
@@ -23,12 +40,15 @@ const handleInput = (event) => {
 }
 
 const addTodo = () => {
-    const todoItem = newTodoItem.value
-    const todoItemObj = { completed: false, item: todoItem }
-    //obj => json 변환해서 로컬스토리지에 저장
-    localStorage.setItem(todoItem, JSON.stringify(todoItemObj))
-
-    clearInput()
+    if (newTodoItem.value !== "") {
+        const todoItemStr = newTodoItem.value
+        const itemObj = { completed: false, item: todoItemStr }
+        store.dispatch("moduleTodo/addTodo", itemObj)
+        //store.commit("addTodo", todoItemStr)
+        clearInput()
+    } else {
+        showModal.value = !showModal.value
+    }
 }
 
 const clearInput = () => {
@@ -72,5 +92,9 @@ input:focus {
 .addBtn {
     color: white;
     vertical-align: middle;
+}
+
+.closeModalBtn {
+    color: #42b983;
 }
 </style>
