@@ -21,11 +21,15 @@
 <script setup>
 import { ref } from 'vue';
 import MyModal from './common/MyModal.vue'
+import { useStore } from "vuex"
+
+const store = useStore()
 
 const showModal = ref(false)
 const newTodoItem = ref("")
 //"input:todo" 이벤트 정의
-const emit = defineEmits(["input:todo", "add:todo"])
+const emit = defineEmits(["input:todo"])
+
 
 const handleInput = (event) => {
     const todoText = event.target.value
@@ -38,8 +42,7 @@ const handleInput = (event) => {
 const addTodo = () => {
     if (newTodoItem.value !== "") {
         const todoItemStr = newTodoItem.value
-        //add:todo 이벤트 발생
-        emit('add:todo', todoItemStr)
+        store.commit("addTodo", todoItemStr)
         clearInput()
     } else {
         showModal.value = !showModal.value

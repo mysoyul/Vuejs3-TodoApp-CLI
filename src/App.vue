@@ -1,7 +1,7 @@
 <template>
   <div>
     <TodoHeader></TodoHeader>
-    <TodoInput @add:todo="addTodo"></TodoInput>
+    <TodoInput></TodoInput>
     <TodoIList @remove:todo="removeTodo" @toggle:todo="toggleTodo"></TodoIList>
     <TodoFooter @clear:todo="clearTodo"></TodoFooter>
   </div>
@@ -37,13 +37,6 @@ export default {
       } //if
     }) //onBeforeMount
 
-    const addTodo = (todoItemStr) => {
-      const todoItemObj = { completed: false, item: todoItemStr };
-      //obj => json 변환해서 로컬스토리지에 저장
-      localStorage.setItem(todoItemStr, JSON.stringify(todoItemObj));
-      todoItems.push(todoItemObj);
-    };//addTodo
-
     const removeTodo = (todoItem, index) => {
       localStorage.removeItem(todoItem)
       todoItems.splice(index, 1)
@@ -61,7 +54,7 @@ export default {
       todoItems.splice(0)
     }
 
-    return { todoItems, addTodo, removeTodo, toggleTodo, clearTodo };
+    return { todoItems, removeTodo, toggleTodo, clearTodo };
   }, //setup
 }
 </script>
