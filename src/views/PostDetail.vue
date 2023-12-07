@@ -8,7 +8,7 @@
                 <div><label><strong>Title:</strong></label> {{ post.title }}</div>
             </div>
             <div class="mt-4 text-center">
-                <button class="btn btn-danger" v-on:click="removePost(post.id)">Delete</button>
+                <button class="btn btn-danger" @click="removePost(post.id)">Delete</button>
             </div>
         </div>
     </div>
@@ -33,6 +33,7 @@
     store.dispatch("modulePost/removePost", id);
     router.push("/posts");
   };
+
   const fetchData = () => {
     if(route.params.id) {
       store.dispatch("modulePost/loadPost", { id: +route.params.id })
