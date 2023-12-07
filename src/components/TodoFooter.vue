@@ -5,12 +5,15 @@
 </template>
 
 <script>
+import { useStore } from "vuex"
+
 export default {
-    emits:['clear:todo'],
-    
-    setup(props, { emit }) {
+       
+    setup() {
+        const store = useStore()
+
         const clearTodo = () => {
-            emit('clear:todo')
+            store.commit("clearTodo")
         }
 
         return {
