@@ -42,7 +42,9 @@ const handleInput = (event) => {
 const addTodo = () => {
     if (newTodoItem.value !== "") {
         const todoItemStr = newTodoItem.value
-        store.commit("addTodo", todoItemStr)
+        const itemObj = { completed: false, item: todoItemStr }
+        store.dispatch("addTodo", itemObj)
+        //store.commit("addTodo", todoItemStr)
         clearInput()
     } else {
         showModal.value = !showModal.value
