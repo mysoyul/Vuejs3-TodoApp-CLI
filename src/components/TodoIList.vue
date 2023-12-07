@@ -15,17 +15,22 @@
 
 <script setup>
 import { useStore } from "vuex"
-import { computed } from "vue"
+import { computed, onMounted } from "vue"
 
 const store = useStore()
 const todoItems = computed(() => store.state.todoItems)
 
+onMounted(() => {
+    console.log('onMounted...')
+    store.dispatch("loadTodoItems")
+})
+
 const removeTodo = (todoItem, index) => {
-    store.commit("removeTodo", {todoItem, index})
+    store.commit("removeTodo", { todoItem, index })
 }
 
 const toggleComplete = (todoObject, index) => {
-    store.commit("toggleTodo", { todoItem:todoObject, index })
+    store.commit("toggleTodo", { todoItem: todoObject, index })
 }
 
 </script>
