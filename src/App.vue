@@ -2,10 +2,8 @@
   <div>
     <TodoHeader></TodoHeader>
     <TodoInput @add:todo="addTodo"></TodoInput>
-    <TodoIList :todo-items="todoItems" 
-      @remove:todo="removeTodo" 
-      @toggle:todo="toggleTodo"></TodoIList>
-    <TodoFooter></TodoFooter>
+    <TodoIList :todo-items="todoItems" @remove:todo="removeTodo" @toggle:todo="toggleTodo"></TodoIList>
+    <TodoFooter @clear:todo="clearTodo"></TodoFooter>
   </div>
 </template>
 
@@ -58,7 +56,12 @@ export default {
       localStorage.setItem(item, JSON.stringify(todoItems[index]))
     };
 
-    return { todoItems, addTodo, removeTodo, toggleTodo };
+    const clearTodo = () => {
+      localStorage.clear()
+      todoItems.splice(0)
+    }
+
+    return { todoItems, addTodo, removeTodo, toggleTodo, clearTodo };
   }, //setup
 }
 </script>
