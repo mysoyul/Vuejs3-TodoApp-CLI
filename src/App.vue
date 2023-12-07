@@ -2,7 +2,7 @@
   <div>
     <TodoHeader></TodoHeader>
     <TodoInput @add:todo="addTodo"></TodoInput>
-    <TodoIList :todo-items="todoItems" @remove:todo="removeTodo" @toggle:todo="toggleTodo"></TodoIList>
+    <TodoIList @remove:todo="removeTodo" @toggle:todo="toggleTodo"></TodoIList>
     <TodoFooter @clear:todo="clearTodo"></TodoFooter>
   </div>
 </template>
