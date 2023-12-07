@@ -7,6 +7,7 @@
 <script>
 export default {
     emits:['clear:todo'],
+    
     setup(props, { emit }) {
         const clearTodo = () => {
             emit('clear:todo')
