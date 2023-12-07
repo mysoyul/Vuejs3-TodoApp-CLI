@@ -32,7 +32,6 @@ const removeTodo = (todoItem) => {
 const toggleComplete = (todoItem) => {
     todoItem.completed = !todoItem.completed
     store.dispatch("toggleTodo", todoItem)
-
 }
 
 </script>
